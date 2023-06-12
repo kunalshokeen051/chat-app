@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAuth } from '@/context/authContext'
+import { useRouter } from 'next/router';
 
-const index = () => {
- const {signOut, currentUser, isLoading} = useAuth();
-  
+const Home = () => {
+  const { signOut, currentUser, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && !currentUser) {
+      router.push("/login");
+    }
+  }, [currentUser, isLoading])
+
+
   return (
     <div className=''>
-    <button>Sign Out</button>
+      <button onClick={signOut}>Sign Out</button>
     </div>
   )
 }
 
-export default index
+export default Home

@@ -2,9 +2,11 @@ import Link from 'next/link'
 import React,{useEffect} from 'react'
 import { IoLogoGoogle, IoLogoFacebook } from 'react-icons/io'
 import {auth} from "@/firebase/firebase";
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth';
 import {useAuth} from '@/context/authContext';
 import { useRouter } from 'next/router';
+
+const gProvider = new GoogleAuthProvider();
 
 const Login = () => {
 const router = useRouter();
@@ -31,6 +33,7 @@ if(!isLoading && currentUser){
         console.log(err);
       }
     }
+    
 
     return isLoading || (!isLoading && currentUser) ? 'Loader...' : (
         <div className='h-[100vh] flex justify-center items-center bg-c1'>
